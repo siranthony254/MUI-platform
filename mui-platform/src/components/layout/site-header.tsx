@@ -2,8 +2,118 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { navigation } from "@/config/navigation";
 import { MegaMenu } from "./mega-menu";
+
+/* -----------------------------
+   Navigation Structure
+------------------------------*/
+const NAV_ITEMS = [
+  {
+    label: "About",
+    href: "/About",
+    items: [
+      {
+        title: "Our Story",
+        description: "Why universities are our focus",
+        href: "/About/OurStory",
+      },
+      {
+        title: "Vision & Mission",
+        description: "What Mic’d Up stands for",
+        href: "/About/Vision-Mission",
+      },
+      {
+        title: "MUI Leadership",
+        description: "Founding directors and governance",
+        href: "/About/MUI-Leadership",
+      },
+    ],
+  },
+  {
+    label: "Programs",
+    href: "/programs",
+    items: [
+      {
+        title: "Talent & Mentorship",
+        description: "Identifying and nurturing voices",
+        href: "/Programs/Mentorships",
+      },
+      {
+        title: "Leadership Formation",
+        description: "Values-driven leadership development",
+        href: "/Programs/Leadership",
+      },
+      {
+        title: "Events & Summits",
+        description: "Campus dialogues and convenings",
+        href: "/Programs/Events",
+      },
+    ],
+  },
+  {
+    label: "Research & Insights",
+    href: "/research",
+    items: [
+      {
+        title: "Campus Reports",
+        description: "Original student-focused research",
+        href: "/Research/Reports",
+      },
+      {
+        title: "Youth Trends",
+        description: "Emerging voices and movements",
+        href: "/Research/Trends",
+      },
+    ],
+  },
+  {
+    label: "Media",
+    href: "/media",
+    items: [
+      {
+        title: "Campus Podcast",
+        description: "Long-form campus conversations",
+        href: "/Media/Podcast",
+      },
+      {
+        title: "Voices & Stories",
+        description: "Narratives from student life",
+        href: "/Media/Stories",
+      },
+      {
+        title: "MUC Talks",
+        description: "Stage talks and panels",
+        href: "/Media/Talks",
+      },
+      {
+        title: "Documentaries",
+        description: "Deep-dive visual stories",
+        href: "/Media/Documentaries",
+      },
+    ],
+  },
+  {
+    label: "Get Involved",
+    href: "/get-involved",
+    items: [
+      {
+        title: "Ambassadors",
+        description: "Represent Mic’d Up on your campus",
+        href: "/Get-involved/Ambassadors",
+      },
+      {
+        title: "Partners",
+        description: "Collaborate with the initiative",
+        href: "/Get-involved/Partnerships",
+      },
+      {
+        title: "Mentors",
+        description: "Guide emerging voices",
+        href: "/Get-involved/Mentors",
+      },
+    ],
+  },
+];
 
 export function SiteHeader() {
   const [active, setActive] = useState<string | null>(null);
@@ -15,81 +125,54 @@ export function SiteHeader() {
   };
 
   const handleLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setActive(null);
-    }, 120); // small forgiveness delay
+    timeoutRef.current = setTimeout(() => setActive(null), 120);
   };
 
   return (
     <header className="sticky top-0 z-50 bg-black text-white border-b border-white/10">
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center">
-        
+
         {/* Brand */}
-        <Link
-          href="/"
-          className="font-semibold text-lg tracking-tight shrink-0"
-        >
+        <Link href="/" className="font-semibold text-lg tracking-tight text-amber-500">
           Mic’d Up Initiative
-          <p className="mt-2 text-neutral-600 max-w-2xl">
-        A platform for voices, consciousness, and collective action.
-      </p>
         </Link>
 
-        {/* Right Cluster */}
-        <div className="ml-auto flex items-center gap-10">
-          
-          {/* Navigation */}
-          <nav className="flex items-center gap-8">
-  {navigation.map((nav) => (
-    <div
-      key={nav.label}
-      className="relative"
-      onMouseEnter={() => handleEnter(nav.label)}
-      onMouseLeave={handleLeave}
-    >
-      <button
-        className={`
-          relative text-sm font-medium transition
-          ${active === nav.label ? "opacity-100" : "opacity-80 hover:opacity-100"}
-          after:absolute after:left-0 after:-bottom-1
-          after:h-px after:bg-white after:transition-all
-          ${active === nav.label ? "after:w-full" : "after:w-0 hover:after:w-full"}
-        `}
-        aria-haspopup="true"
-        aria-expanded={active === nav.label}
-      >
-        {nav.label}
-      </button>
-
-      {active === nav.label && (
-        <MegaMenu
-          items={nav.items}
-          align={nav.label === "About" ? "right" : "left"}
-        />
-      )}
-    </div>
-  ))}
-</nav>
-
-          {/* Auth */}
-          <div className="flex items-center gap-4 text-sm">
-            <Link
-              href="/signin"
-              className="opacity-80 hover:opacity-100 transition"
+        {/* Navigation */}
+        <nav className="ml-auto flex items-center gap-8">
+          {NAV_ITEMS.map((nav) => (
+            <div
+              key={nav.label}
+              className="relative"
+              onMouseEnter={() => handleEnter(nav.label)}
+              onMouseLeave={handleLeave}
             >
-              Sign In
-            </Link>
+              <Link
+                href={nav.href}
+                className={`
+                  relative text-sm font-medium transition
+                  ${active === nav.label ? "text-amber-400" : "text-white/80 hover:text-white"}
+                  after:absolute after:left-0 after:-bottom-1
+                  after:h-px after:bg-amber-400 after:transition-all
+                  ${active === nav.label ? "after:w-full" : "after:w-0 hover:after:w-full"}
+                `}
+              >
+                {nav.label}
+              </Link>
 
-            <Link
-              href="/membership"
-              className="px-4 py-1 border border-white/30 rounded-full
-                         hover:bg-white hover:text-black transition"
-            >
-              Membership
-            </Link>
-          </div>
+              {active === nav.label && <MegaMenu items={nav.items} />}
+            </div>
+          ))}
 
-        </div>
+          {/* Primary CTA */}
+          <Link
+            href="/mic-the-campus"
+            className="ml-4 px-4 py-1.5 text-sm rounded-full
+                       border border-amber-400 text-amber-400
+                       hover:bg-amber-400 hover:text-black transition"
+          >
+            Mic the Campus
+          </Link>
+        </nav>
       </div>
     </header>
   );

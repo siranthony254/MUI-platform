@@ -1,19 +1,49 @@
+import { HomeHero } from "@/components/home/HomeHero";
+import { WhyWeExist } from "@/components/home/WhyWeExist";
+import { WhatWeDo } from "@/components/home/WhatWeDo";
+import { DiscoverRail } from "@/components/home/DiscoverRail";
+import { GetInvolved } from "@/components/home/GetInvolved";
+
+/* ------------------------------------------------------------------ */
+/* Homepage Content Data (temporary – later comes from CMS / API)     */
+/* ------------------------------------------------------------------ */
+
+const featuredPlaylists = [
+  {
+    title: "Voices of the Campus",
+    count: "8 talks",
+    image: "/playlist-1.jpg",
+    href: "/watch/playlists/campus",
+  },
+  {
+    title: "African Futures",
+    count: "6 talks",
+    image: "/playlist-2.jpg",
+    href: "/watch/playlists/futures",
+  },
+  {
+    title: "Faith, Truth & Society",
+    count: "10 talks",
+    image: "/playlist-3.jpg",
+    href: "/watch/playlists/faith",
+  },
+  {
+    title: "Creative Resistance",
+    count: "5 talks",
+    image: "/playlist-4.jpg",
+    href: "/watch/playlists/creative",
+  },
+];
+
 export default function HomePage() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-4">
-      <h1 className="text-3xl font-semibold">
-        Mic’d Up Initiative
-      </h1>
-      <p className="mt-4 text-neutral-600 max-w-2xl">
-        A platform for voices, consciousness, and collective action.
-      </p>
-       <h2 className="text-3xl font-bold">
-        Talents
-        <p className="mt-4 text-neutral-600 max-w-2xl">
-        Discover heroic Campus Talents.
-        </p>
-       </h2>
-    </section>
-    
+    <>
+      <HomeHero />
+      <WhyWeExist />
+      <WhatWeDo />
+      <DiscoverRail />
+      <GetInvolved />
+
+    </>
   );
 }
