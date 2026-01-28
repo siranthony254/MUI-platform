@@ -10,7 +10,7 @@ import { MegaMenu } from "./mega-menu";
 const NAV_ITEMS = [
   {
     label: "About",
-    href: "/About",
+    href: "/",
     items: [
       {
         title: "Our Story",
@@ -31,7 +31,7 @@ const NAV_ITEMS = [
   },
   {
     label: "Programs",
-    href: "/programs",
+    href: "",
     items: [
       {
         title: "Talent & Mentorship",
@@ -52,7 +52,7 @@ const NAV_ITEMS = [
   },
   {
     label: "Research & Insights",
-    href: "/research",
+    href: "/",
     items: [
       {
         title: "Campus Reports",
@@ -68,7 +68,7 @@ const NAV_ITEMS = [
   },
   {
     label: "Media",
-    href: "/media",
+    href: "",
     items: [
       {
         title: "Campus Podcast",
@@ -94,7 +94,7 @@ const NAV_ITEMS = [
   },
   {
     label: "Get Involved",
-    href: "/get-involved",
+    href: "",
     items: [
       {
         title: "Ambassadors",
